@@ -99,22 +99,36 @@ export default {
           let arr = [];
           this.da.map(v => {
             let obj = {};
-            obj.id = v.id;
-            obj.status = v.status;
+            obj.num = v.num;
+            obj.bianzhihao = v.bianzhihao;
+            obj.userId = v.userId;
+            obj.name = v.name;
+            obj.bubie = v.bubie;
+            obj.zhiwumingcheng = v.zhiwumingcheng;
+            obj.xiangangweishijian = v.xiangangweishijian;
+            obj.zhijijishijian = v.zhijijishijian;
+            obj.junxianjishijian = v.junxianjishijian;
+            obj.birthDate = v.birthDate;
+            obj.ruwushijian = v.ruwushijian;
+            obj.jijishijian = v.jijishijian;
+            obj.native = v.native;
             arr.push(obj);
           });
           console.log(arr);
-          let para = {
-            //withList: JSON.stringify(this.da)
-            withList: arr
-          };
+          
           _this.$message({
-            message: "请耐心等待导入成功",
-            type: "success"
+            message: "请耐心等待导入……",
+            type: "waitting"
           });
-          withImport(para).then(res => {
-            window.location.reload();
-          });
+        //   let para = {
+        //     //withList: JSON.stringify(this.da)
+        //     withList: arr
+        //   };
+          //   withImport(para).then(res => {
+          //     window.location.reload();
+          //   });
+        // 将数据加载到现有table表中
+
         };
 
         reader.readAsArrayBuffer(f);
