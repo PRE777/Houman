@@ -42,10 +42,6 @@ export default {
         //   ExportName: "3-导出Pdf",
         //   ExportID: "Pdf"
         // }
-        {
-          ExportName: "3-导入Excel",
-          ExportID: "import_Excel"
-        }
       ],
       subExportFileName: ""
     };
