@@ -6,14 +6,6 @@
         <button class="closeBtnStyle" @click="closeBtnEvent">关闭</button>
       </div>
       <div id="fromContainer">
-        <!-- <el-form ref="form" label-width="80px" v-for="(item,index) in infoLists" :key="index">
-          <el-form-item :label="item.name">
-            
-            <el-form-item class="el-form-item-newClass" :label="item.detail"></el-form-item>
-            <el-input type="textarea" v-model="item.detail" :disabled = "true"></el-input>
-          </el-form-item>
-        </el-form>-->
-
         <table class="tableStyle" v-for="(item,index) in infoLists" :key="index">
           <tr>
             <th class="thStyle" >{{item.name}}</th>
