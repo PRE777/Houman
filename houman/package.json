@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "axios": "0.18.0",
-    "cesium": "1.52.0",
+    "cesium": "^1.56.1",
     "echarts": "^4.2.0-rc.2",
     "element-ui": "2.4.11",
     "js-cookie": "2.2.0",
@@ -21,8 +21,7 @@
     "screenfull": "3.3.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
-    "vuex": "3.0.1",
-    "json2csv":"^4.4.1"
+    "vuex": "3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

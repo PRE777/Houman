@@ -1,33 +1,20 @@
+import luan from '../../src/assets/images/404.png'
+import ln from '../../src/assets/images/404_cloud.png'
 export default [
   {
-    path: '/index',
-    component: () => import('@/views/Dashboard/index'),
-    children: [
-      // { path: "/index/menus1", component: () => import('@/components/menu1') }
-    ]
-  },
-  {
-    path: '/menus1',
-    component: () => import('@/components/menu1'),
+    path: '/sysInfor',
+    names:'系统门户',
+    img:luan,
+    component: () => import('@/components/sysInfor/index'),
     children: [
     ]
   },
   {
-    path: '/menus2',
-    component: () => import('@/components/menu2'),
+    path: '/cesiumShow',
+    names:'综合态势展示',
+    img:ln,
+    component: () => import('@/components/cesiumShow/index'),
     children: [
     ]
-  },
-  {
-    path: '/exportFileIndex',
-    component: () => import('@/components/exportFile/index'),
-    children: [
-    ]
-  },
-  {
-    path: '/importFileIndex',
-    component: () => import('@/components/importFile/index'),
-    children: [
-    ]
-  },
+  }
 ]

@@ -12,5 +12,11 @@
     path: '/401',
     component: () => import('@/views/Utils/Error/401')
   },
-  { path: '*', redirect: '/404' }
+  // { path: '*', redirect: '/404' },
+  {
+    path: '/index',
+    component: () => import('@/views/Dashboard/index'),
+    children: [
+    ]
+  }
 ]
