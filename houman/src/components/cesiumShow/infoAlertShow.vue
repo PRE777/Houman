@@ -6,11 +6,20 @@
         <button class="closeBtnStyle" @click="closeBtnEvent">关闭</button>
       </div>
       <div id="fromContainer">
-        <el-form ref="form" label-width="80px" v-for="(item,index) in infoLists" :key="index">
+        <!-- <el-form ref="form" label-width="80px" v-for="(item,index) in infoLists" :key="index">
           <el-form-item :label="item.name">
-            <el-form-item :label="item.detail"></el-form-item>
+            
+            <el-form-item class="el-form-item-newClass" :label="item.detail"></el-form-item>
+            <el-input type="textarea" v-model="item.detail" :disabled = "true"></el-input>
           </el-form-item>
-        </el-form>
+        </el-form>-->
+
+        <table class="tableStyle" v-for="(item,index) in infoLists" :key="index">
+          <tr>
+            <th class="thStyle" >{{item.name}}</th>
+            <td calss="tdStyle">{{item.detail}}</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
@@ -27,7 +36,7 @@ export default {
   watch: {
     // show(newVal) {
     // }
-    infoLists(newVal){
+    infoLists(newVal) {
       console.log("newVal " + newVal);
     }
   },
@@ -101,19 +110,14 @@ export default {
   background-color: white;
   overflow-y: scroll;
 }
-
-/* .el-form-item__content {
-  margin: auto !important;
+.tableStyle{
+  /* border: 0; */
+  margin-top: 30px;
 }
-.container >>> .el-form-item__label {
-  margin: auto !important;
-  width: 340px !important;
-  text-align: right;
-  float: left;
-  font-size: 14px;
-  color: #606266;
-  padding: 0 12px 0 0;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-} */
+.thStyle{
+  width:100px;
+}
+.tdStyle{
+  width:300px;
+}
 </style>
