@@ -9,8 +9,13 @@
           @change="handleCheckAllChange"
         >全选</el-checkbox>
         <div style="margin: 15px 0;"></div>
-        <el-checkbox-group v-model="checkedPersons" @change="handleCheckedCitiesChange">
-          <el-checkbox v-for="person in persons" :label="person" :key="person">{{person}}</el-checkbox>
+        <el-checkbox-group v-model="checkedPersons" @change="handleCheckedPersonsChange">
+          <el-checkbox
+            v-model="persons"
+            v-for="person in persons"
+            :label="person"
+            :key="person.militaryName"
+          >{{person.militaryName}}</el-checkbox>
         </el-checkbox-group>
       </div>
       <div id="digital_earth" class="box"></div>
@@ -25,18 +30,9 @@ import Navbar from "@/views/Dashboard/Navbar.vue";
 import Cesium from "cesium/Cesium";
 import widgets from "cesium/Widgets/widgets.css";
 var viewer;
-var entityClickedHandler;
-var human_distribution_primitives = new Cesium.PrimitiveCollection(); // 人力资源分布Entitys
-const personOptions = [
-  "军职以上主官",
-  "其他军职以上干部",
-  "部队师旅团主官",
-  "部队其他师旅团干部",
-  "营连主官",
-  "基层其他营连以下干部",
-  "机关干部",
-  "院校科研医疗单位"
-];
+var entityMouseOverHandler;
+var allEntitys = [];
+var personOptions = [];
 
 export default {
   name: "dashboard",
@@ -48,186 +44,18 @@ export default {
       checkAll: false,
       checkedPersons: [],
       persons: personOptions,
-      isIndeterminate: false,
-      lists: [
-        {
-          id: "1110",
-          lat: 38.4534456,
-          lng: 117.34827737,
-          number: 918,
-          unitName: "北京都在",
-          detail: [
-            {
-              name: "XX部门",
-              detail: "技术平台部"
-            },
-            {
-              name: "总人数",
-              detail: "100人"
-            }
-          ]
-        },
-        {
-          id: "1111",
-          lat: 33.4534456,
-          lng: 117.2311111,
-          number: 918,
-          unitName: "北京都在哪网讯科技",
-          detail: [
-            {
-              name: "XX部门",
-              detail: "伤物语不读"
-            },
-            {
-              name: "总人数",
-              detail: "1889人"
-            },
-            {
-              name: "地址",
-              detail: "北京理工大学国防科技园"
-            }
-          ]
-        },
-        {
-          id: "1112",
-          lat: 35.4534456,
-          lng: 114.34827737,
-          number: 918,
-          unitName: "南京都在哪网讯科技",
-          detail: [
-            {
-              name: "？？？部门",
-              detail: "中国移动十多个不能"
-            },
-            {
-              name: "设备数",
-              detail: "99台"
-            },
-            {
-              name: "地址",
-              detail: "哒哒哒哒哒哒多多多多"
-            }
-          ]
-        },
-        {
-          id: "1113",
-          lat: 35.0123445,
-          lng: 114.34827737,
-          number: 918,
-          unitName: "上海都在哪网讯科技",
-          detail: [
-            {
-              name: "hhhhh部门",
-              detail: "数据都没码成功"
-            },
-            {
-              name: "十多个工队",
-              detail: "22"
-            },
-            {
-              name: "主打产品",
-              detail: "态势分布项目，人力资源分布项目……"
-            }
-          ]
-        },
-        {
-          id: "1114",
-          lat: 39.4534456,
-          lng: 117.34827737,
-          number: 558,
-          unitName: "山东都在哪网讯科技",
-          detail: []
-        },
-        {
-          id: "1115",
-          lat: 36.4534456,
-          lng: 118.34827737,
-          number: 918,
-          unitName: "河南都在哪网讯科技",
-          detail: [
-            {
-              name: "地址",
-              detail: "北京理工大学国防科技园"
-            },
-            {
-              name: "主打产品",
-              detail: "态势分布项目，人力资源分布项目……"
-            }
-          ]
-        },
-        {
-          id: "1116",
-          lat: 36.4534456,
-          lng: 118.34827737,
-          number: 918,
-          unitName: "河北都在哪网讯科技",
-          detail: [
-            {
-              name: "XX部门",
-              detail: "技术平台部"
-            },
-            {
-              name: "主打产品",
-              detail: "态势分布项目，人力资源分布项目……"
-            }
-          ]
-        },
-        {
-          id: "1117",
-          lat: 37.66547788,
-          lng: 117.34827737,
-          number: 918,
-          unitName: "山西都在哪网讯科技",
-          detail: [
-            {
-              name: "XX部门",
-              detail: "技术平台部"
-            }
-          ]
-        },
-        {
-          id: "1118",
-          lat: 38.13244443,
-          lng: 117.78655499,
-          number: 918,
-          unitName: "陕西都在哪网讯科技",
-          detail: [
-            {
-              name: "主打产品",
-              detail: "态势分布项目，人力资源分布项目……"
-            }
-          ]
-        },
-        {
-          id: "1119",
-          lat: 37.4534456,
-          lng: 118.34827737,
-          number: 918,
-          unitName: "广州都在哪网讯科技",
-          detail: [
-            {
-              name: "ddddde",
-              detail: "平部哈哈"
-            },
-            {
-              name: "加快速度",
-              detail: "88"
-            },
-            {
-              name: "打得过",
-              detail: "北京理工大学国防科技园"
-            },
-            {
-              name: "党工委",
-              detail:
-                "2017年4月16日 - vue实现简单表格组件 本来想这一周做一个关于vuex的总结的,但是由于朋友反应说还不知道如何用vue去写一个组件,所以在此写写一篇文章来说明下如何去写vue页面或者..."
-            }
-          ]
-        }
-      ]
+      isIndeterminate: false
     };
   },
+  created: function() {
+    // 请求数据
+    setTimeout(() => {
+      personOptions = require("./personCategroy.json").personCategroy;
+      this.persons = personOptions;
+    }, 2000);
+  },
   mounted: function() {
+    // this.isrefresh = this.isrefresh ? false:true;
     viewer = new Cesium.Viewer("digital_earth", {
       animation: false, //是否创建动画小器件，左下角仪表
       shouldAnimate: true,
@@ -277,18 +105,15 @@ export default {
       }
     });
     // this.lowMap(viewer);
-    viewer.scene.primitives.add(human_distribution_primitives);
-    // entity 添加点击事件
-    entityClickedHandler = new Cesium.ScreenSpaceEventHandler(
+    // viewer.scene.primitives.add(human_distribution_primitives);
+
+    entityMouseOverHandler = new Cesium.ScreenSpaceEventHandler(
       viewer.scene.canvas
     );
 
-    this.addDataToMap();
+    // this.addDataToMap();
   },
   methods: {
-    showInfoAlert(value) {
-      this.isShow = value;
-    },
     // 加载地图背景
     lowMap(viewer) {
       var url = "http://dev.iwhere.com:8010/geoserver/GJ/wms";
@@ -319,16 +144,22 @@ export default {
       var imageryLayer = viewer.imageryLayers.addImageryProvider(provider);
       imageryLayer.brightness = 2.0;
     },
-    // 在地图上添加Entity
-    addDataToMap() {
-      let color = new Cesium.Color(222.0 / 255, 59.0 / 255, 100.0 / 255, 1);
-      this.lists.forEach(element => {
+
+    // 地图上添加entity
+    addEntityToMap(value) {
+      let r = value.color.r / 255.0;
+      let g = value.color.g / 255.0;
+      let b = value.color.b / 255.0;
+      let a = value.color.a;
+
+      let color = new Cesium.Color(r, g, b, a);
+      value.locations.forEach(element => {
         let position = new Cesium.Cartesian3.fromDegrees(
           element.lng,
           element.lat,
           0
         );
-        viewer.entities.add({
+        var entity = viewer.entities.add({
           id: "point" + element.id,
           objc: element,
           position: position,
@@ -338,14 +169,23 @@ export default {
             heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
           }
         });
+        allEntitys.push(entity);
       });
       this.mouseMoveEvent();
-      this.addClickedEvent();
     },
+
+    removeEntityFromMap() {
+      for (var i = 0; i < allEntitys.length; i++) {
+        let entity = allEntitys[i];
+        viewer.entities.remove(entity);
+      }
+      allEntitys.length = 0;
+    },
+
     // 鼠标移动到entity上触发事件
     mouseMoveEvent() {
       var oldEntity = null;
-      entityClickedHandler.setInputAction(function(movement) {
+      entityMouseOverHandler.setInputAction(function(movement) {
         var pick = viewer.scene.pick(movement.endPosition);
         if (Cesium.defined(pick) && pick.id != undefined) {
           if (oldEntity != null && oldEntity != pick.id) {
@@ -360,39 +200,27 @@ export default {
         }
       }, Cesium.ScreenSpaceEventType.MOUSE_MOVE); //MOUSE_MOVE
     },
-    // 点击entity触发事件
-    addClickedEvent() {
-      let that = this;
-      entityClickedHandler.setInputAction(function(movement) {
-        var pick = viewer.scene.pick(movement.position);
 
-        if (
-          Cesium.defined(pick) &&
-          pick.id != undefined &&
-          pick.id.id.indexOf("point") != -1
-        ) {
-          var position = pick.id.position.getValue(Cesium.JulianDate.now);
-          // var position = pick.id.position.getValue(Cesium.JulianDate.fromDate(new Date(2017,7,11)));
-          let boxInfo = pick.id.objc;
-          that.showDetailInformation(boxInfo);
-        }
-      }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
-    },
-    // 显示提示框
-    showDetailInformation(element) {
-      this.isShow = true;
-      this.infoLists = element.detail;
-      // this.infoLists.push({ name: "XXXXXX", detail: "1233333333" });
-    },
     handleCheckAllChange(val) {
       this.checkedPersons = val ? personOptions : [];
       this.isIndeterminate = false;
+      this.removeEntityFromMap();
+      if (val) {
+        // 全选
+        personOptions.forEach(element => {
+          this.addEntityToMap(element);
+        });
+      } 
     },
-    handleCheckedCitiesChange(value) {
+    handleCheckedPersonsChange(value) {
       let checkedCount = value.length;
       this.checkAll = checkedCount === this.persons.length;
       this.isIndeterminate =
         checkedCount > 0 && checkedCount < this.persons.length;
+      this.removeEntityFromMap();
+      value.forEach(element => {
+        this.addEntityToMap(element);
+      });
     }
   }
 };
