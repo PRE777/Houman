@@ -27,7 +27,16 @@ import widgets from "cesium/Widgets/widgets.css";
 var viewer;
 var entityClickedHandler;
 var human_distribution_primitives = new Cesium.PrimitiveCollection(); // 人力资源分布Entitys
-const personOptions = ["军职以上主官", "其他军职以上干部", "部队师旅团主官", "部队其他师旅团干部","营连主官","基层其他营连以下干部","机关干部","院校科研医疗单位"];
+const personOptions = [
+  "军职以上主官",
+  "其他军职以上干部",
+  "部队师旅团主官",
+  "部队其他师旅团干部",
+  "营连主官",
+  "基层其他营连以下干部",
+  "机关干部",
+  "院校科研医疗单位"
+];
 
 export default {
   name: "dashboard",
@@ -382,7 +391,8 @@ export default {
     handleCheckedCitiesChange(value) {
       let checkedCount = value.length;
       this.checkAll = checkedCount === this.persons.length;
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.persons.length;
+      this.isIndeterminate =
+        checkedCount > 0 && checkedCount < this.persons.length;
     }
   }
 };
@@ -458,21 +468,25 @@ body > .el-container {
   background-color: rebeccapurple !important;
 }
 .el-checkbox-group {
-    font-size: 0;
-    display: flex;
-    flex-direction: column;
+  font-size: 0;
+  display: flex;
+  flex-direction: column;
 }
-.el-checkbox+.el-checkbox {
-    margin-left: 0px;
+.el-checkbox + .el-checkbox {
+  margin-left: 0px;
 }
 .el-checkbox-group {
-    font-size: 0;
-    margin-left: 25px;
+  font-size: 0;
+  margin-left: 25px;
 }
-.el-checkbox, .el-checkbox__input {
-    display: inline-block;
-    position: relative;
-    white-space: nowrap;
-    padding: 4px;
+.el-checkbox {
+  margin-top: 10px;
+}
+.el-checkbox,
+.el-checkbox__input {
+  display: inline-block;
+  position: relative;
+  white-space: nowrap;
+  padding: 4px;
 }
 </style>
