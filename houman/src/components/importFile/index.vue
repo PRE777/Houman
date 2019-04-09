@@ -3,7 +3,7 @@
     <navbar></navbar>
     <ImportFile @importDatas="getNewData"></ImportFile>
     <div class="contentDiv">
-      <el-table v-model="tableData" :data="tableData" class="tableStyle">
+      <el-table v-model="tableData" :data="tableData" class="tableStyle" height="600px">
         <el-table-column fixed prop="num" label="序号" width="100"></el-table-column>
         <el-table-column prop="bianzhihao" label="编制号" width="100"></el-table-column>
         <el-table-column prop="userId" label="身份号" width="120"></el-table-column>

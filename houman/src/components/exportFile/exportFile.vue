@@ -355,7 +355,7 @@ export default {
 }
 .dropdownBox {
   display: flex;
-  height: 100%;
+  height: 30px;
 }
 .dropDiv {
   display: flex;
