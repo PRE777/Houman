@@ -24,5 +24,20 @@ export default [
     component: () => import('@/components/comprehensiveState/index'),
     children: [
     ]
+  },
+  {
+    path: '/importFile',
+    names: '军事人力资源信息管理辅助工具',
+    img: ln,
+    component: () => import('@/components/importFile/index'),
+    children: [
+    ]
+  }, {
+    path: '/exportFile',
+    names: '军事人力资源个人信息助理',
+    img: ln,
+    component: () => import('@/components/exportFile/index'),
+    children: [
+    ]
   }
 ]
