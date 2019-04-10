@@ -35,13 +35,13 @@ export default {
           ExportID: "Excel"
         },
         {
-          ExportName: "2-导出Csv",
-          ExportID: "Csv"
-        },
-        {
-          ExportName: "3-导出Json",
+          ExportName: "2-导出Json",
           ExportID: "Json"
         }
+        // {
+        //   ExportName: "3-导出Csv",
+        //   ExportID: "Csv"
+        // }
         // {
         //   ExportName: "3-导出Pdf",
         //   ExportID: "Pdf"
@@ -201,7 +201,7 @@ export default {
       } else if (fileType == "Json") {
         const data = JSON.stringify(this.exportData);
         const blob = new Blob([data], { type: "" });
-        FileSaver.saveAs(blob, this.subExportFileName +".json");
+        FileSaver.saveAs(blob, this.subExportFileName + ".json");
       }
     },
     getRow: function(row, keys) {

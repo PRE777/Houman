@@ -6,20 +6,32 @@
         id="upload"
         type="file"
         @change="importfxx(this)"
-        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .xml"
       >
     </span>
-    
   </div>
 </template>
 
 <script>
 export default {
   name: "IMPORTFILE",
+  
   data() {
     return {
-      formData:[]
+      formData: [],
+      columns:[]
     };
+  },
+  watch:{
+    headerColumns(newVal){
+      this.columns = newVal;
+    }
+  },
+  props: {
+    headerColumns: {
+      type: Array,
+      default: () => []
+    }
   },
   methods: {
     // 导入
@@ -60,7 +72,6 @@ export default {
           if (rABS) {
             wb = XLSX.read(btoa(fixdata(binary)), {
               //手动转化
-
               type: "base64"
             });
           } else {
@@ -70,50 +81,17 @@ export default {
           } // outdata就是你想要的东西 excel导入的数据
 
           outdata = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]); // excel 数据再处理
-          //   let arr = [];
-
-          //   outdata.map(v => {
-          //     let obj = {};
-
-          //     obj.account = v.登录账号;
-
-          //     obj.name = v.姓名;
-
-          //     obj.department = v.部门;
-
-          //     obj.secondDepartment = v.二级部门;
-
-          //     obj.status = v.状态;
-
-          //     obj.id = v.id;
-
-          //     arr.push(obj);
-          //   });
-
-          //   _this.accountList = [...arr];
-
-          //   console.log(_this.accountList);
-
-          //   _this.reload();
-
           outdata = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]); //outdata就是你想要的东西
           this.da = [...outdata];
           let arr = [];
           this.da.map(v => {
             let obj = {};
-            obj.num = v.num;
-            obj.bianzhihao = v.bianzhihao;
-            obj.userId = v.userId;
-            obj.name = v.name;
-            obj.bubie = v.bubie;
-            obj.zhiwumingcheng = v.zhiwumingcheng;
-            obj.xiangangweishijian = v.xiangangweishijian;
-            obj.zhijijishijian = v.zhijijishijian;
-            obj.junxianjishijian = v.junxianjishijian;
-            obj.birthDate = v.birthDate;
-            obj.ruwushijian = v.ruwushijian;
-            obj.jijishijian = v.jijishijian;
-            obj.native = v.native;
+            for (let index = 0; index < _this.columns.length; index++) {
+              const element = _this.columns[index];
+              let key = element.key;
+              let value = element.title;
+              obj[key] = v[value]
+            }
             arr.push(obj);
           });
           console.log(arr);
@@ -121,18 +99,17 @@ export default {
             message: "请耐心等待导入……",
             type: "waitting"
           });
-        _this.formData = arr;
-        _this.$emit("importDatas",arr);
+          _this.formData = arr;
+          _this.$emit("importDatas", arr);
 
-        //   let para = {
-        //     //withList: JSON.stringify(this.da)
-        //     withList: arr
-        //   };
+          //   let para = {
+          //     //withList: JSON.stringify(this.da)
+          //     withList: arr
+          //   };
           //   withImport(para).then(res => {
           //     window.location.reload();
           //   });
-        // 将数据加载到现有table表中
-
+          // 将数据加载到现有table表中
         };
 
         reader.readAsArrayBuffer(f);
