@@ -29,7 +29,7 @@
         <div class="personInfoEditDiv">
           <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
             <el-tab-pane label="著述信息" name="1">
-              <el-table fixed :data="writingInfos" max-height="300">
+              <el-table fixed :data="writingInfos">
                 <el-table-column
                   v-for="item in writingInfoColums"
                   :key="item.key"
@@ -51,7 +51,7 @@
               <el-button @click="addPersonInfo">新增</el-button>
             </el-tab-pane>
             <el-tab-pane label="科技奖励信息" name="2">
-              <el-table :data="technologyAwardInfos" max-height="300">
+              <el-table :data="technologyAwardInfos">
                 <el-table-column
                   v-for="item in technologyAwardColums"
                   :key="item.key"
@@ -110,7 +110,7 @@
           :label="item.title"
           :label-width="formLabelWidth"
         >
-          <el-input autocomplete="off"></el-input>
+          <el-input autocomplete="off" v-model="item.value"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -234,13 +234,13 @@ export default {
         }
       ],
       writingInfoColums: [
-        { key: "writingName", title: "文著名称" },
-        { key: "signatureLocation", title: "署名地址" },
-        { key: "publishedTime", title: "发表时间" },
-        { key: "publishOccasion", title: "发表场合" },
-        { key: "journals", title: "刊载物" },
-        { key: "journalTime", title: "刊载时间" },
-        { key: "profit", title: "获利情况" }
+        { key: "writingName", title: "文著名称", value: "" },
+        { key: "signatureLocation", title: "署名地址", value: "" },
+        { key: "publishedTime", title: "发表时间", value: "" },
+        { key: "publishOccasion", title: "发表场合", value: "" },
+        { key: "journals", title: "刊载物", value: "" },
+        { key: "journalTime", title: "刊载时间", value: "" },
+        { key: "profit", title: "获利情况", value: "" }
       ],
       // 科技奖励
       technologyAwardInfos: [
@@ -255,12 +255,12 @@ export default {
         }
       ],
       technologyAwardColums: [
-        { key: "awardTime", title: "获奖时间" },
-        { key: "projectName", title: "项目名称" },
-        { key: "projectCodeId", title: "项目代号" },
-        { key: "award", title: "科技奖励" },
-        { key: "number", title: "获奖名次" },
-        { key: "certificateID", title: "证书号" }
+        { key: "awardTime", title: "获奖时间", value: "" },
+        { key: "projectName", title: "项目名称", value: "" },
+        { key: "projectCodeId", title: "项目代号", value: "" },
+        { key: "award", title: "科技奖励", value: "" },
+        { key: "number", title: "获奖名次", value: "" },
+        { key: "certificateID", title: "证书号", value: "" }
       ],
       // 专利信息
       patentInfos: [],
@@ -279,14 +279,14 @@ export default {
         }
       ],
       socialRelationColums: [
-        { key: "name", title: "关系人姓名" },
-        { key: "relation", title: "关系" },
-        { key: "identity", title: "关系人身份" },
-        { key: "gender", title: "关系人性别" },
-        { key: "birthday", title: "出生时间" },
-        { key: "politicalLandscape", title: "政治面貌" },
+        { key: "name", title: "关系人姓名", value: "" },
+        { key: "relation", title: "关系", value: "" },
+        { key: "identity", title: "关系人身份", value: "" },
+        { key: "gender", title: "关系人性别", value: "" },
+        { key: "birthday", title: "出生时间", value: "" },
+        { key: "politicalLandscape", title: "政治面貌", value: "" },
         { key: "uint", title: "现单位" },
-        { key: "address", title: "现住址" }
+        { key: "address", title: "现住址", value: "" }
       ]
     };
   },
@@ -326,25 +326,34 @@ export default {
       switch (this.activeName) {
         case "1":
           // 著述信息
-          this.dialogFormColumns = this.writingInfoColums;
+          this.dialogFormColumns = JSON.parse(
+            JSON.stringify(this.writingInfoColums)
+          ); // 深拷贝
+          // this.dialogFormColumns = this.writingInfoColums;
           this.dialogFormVisible = true;
           this.dialogFormTitle = "新增著述信息";
           break;
         case "2":
           // 科技奖励信息
-          this.dialogFormColumns = this.technologyAwardColums;
+          this.dialogFormColumns = JSON.parse(
+            JSON.stringify(this.technologyAwardColums)
+          );
           this.dialogFormVisible = true;
           this.dialogFormTitle = "新增科技奖励信息";
           break;
         case "3":
           //发明专利信息
-          this.dialogFormColumns = this.patentColums;
+          this.dialogFormColumns = JSON.parse(
+            JSON.stringify(this.patentColums)
+          );
           this.dialogFormVisible = true;
           this.dialogFormTitle = "新增科技奖励信息";
           break;
         case "4":
           // 社会关系信息
-          this.dialogFormColumns = this.socialRelationColums;
+          this.dialogFormColumns = JSON.parse(
+            JSON.stringify(this.socialRelationColums)
+          );
           this.dialogFormVisible = true;
           this.dialogFormTitle = "新增科技奖励信息";
           break;
@@ -358,20 +367,34 @@ export default {
     },
     // 确定添加
     submitBtnEvent() {
+      var dialogElement = {};
+      for (const index in this.dialogFormColumns) {
+        let element = this.dialogFormColumns[index];
+        if (element.value == null || element.value == "") {
+          this.$message({
+            message: element.title + "不能为空",
+            type: "warning"
+          });
+          return;
+        }
+        dialogElement[element.key] = element.value;
+      }
       this.dialogFormVisible = false;
       switch (this.activeName) {
         case "1":
           // 著述信息
-
+          this.writingInfos.splice(0, 0, dialogElement);
           break;
         case "2":
           // 科技奖励信息
+          this.technologyAwardInfos.splice(0, 0, dialogElement);
           break;
         case "3":
           //发明专利信息
           break;
         case "4":
           // 社会关系信息
+          this.socialRelations.splice(0, 0, dialogElement);
           break;
         case "5":
           //地方工作情况
