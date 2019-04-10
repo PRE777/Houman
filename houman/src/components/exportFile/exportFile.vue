@@ -23,8 +23,8 @@
 import json2csv from "json2csv";
 import XLSX from "../../assets/js/exportFile/exportEXCFile.js";
 import { readesxle } from "../../assets/js/exportFile/exportEXCFile.js";
+import FileSaver from "file-saver";
 
-// import func from "../../../vue-temp/vue-editor-bridge";
 export default {
   name: "EXPORTFILE",
   data() {
@@ -38,6 +38,10 @@ export default {
           ExportName: "2-导出Csv",
           ExportID: "Csv"
         },
+        {
+          ExportName: "3-导出Json",
+          ExportID: "Json"
+        }
         // {
         //   ExportName: "3-导出Pdf",
         //   ExportID: "Pdf"
@@ -194,30 +198,10 @@ export default {
           keys,
           this.subExportFileName
         );
-      } else if (fileType == "Pdf") {
-        let tempArray = [];
-        let labels = titles.join(","); // title拼接成一个字符串
-        let keys2 = keys.join(","); // 拼接字符串
-        let row0 = this.exportData[0]; //导出数组内容的第一行
-        var rowKeys = [];
-        for (var p1 in row0) {
-          // 数组
-          if (row0.hasOwnProperty(p1)) {
-            rowKeys.push(p1); // table内容的 key
-          }
-        }
-        // keys 和 table的第一列的key比较 取table中不存在的列 为了赋空值
-        var diffArray = keys.filter(key => !rowKeys.includes(key));
-        let tableData = [];
-        // 循环数组
-        this.exportData.forEach((rowItem, index) => {
-          let temp = rowItem;
-          diffArray.forEach((keyItem, index) => {
-            temp[keyItem] = " ";
-          });
-          tableData.push(temp);
-        });
-        this.exportPdfFile(keys2, labels, tableData);
+      } else if (fileType == "Json") {
+        const data = JSON.stringify(this.exportData);
+        const blob = new Blob([data], { type: "" });
+        FileSaver.saveAs(blob, this.subExportFileName +".json");
       }
     },
     getRow: function(row, keys) {
