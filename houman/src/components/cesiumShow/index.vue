@@ -2,10 +2,51 @@
   <div class="main">
     <navbar></navbar>
     <el-container>
+      <div class="leftBox">
+        <el-tabs v-model="activeName" type="card">
+          <el-tab-pane label="人员地理分布" name="1">
+            <el-checkbox
+              :indeterminate="isIndeterminate"
+              v-model="personCheckAll"
+              @change="handleCheckAllChange"
+            >全选</el-checkbox>
+            <div style="margin: 15px 0;"></div>
+            <el-checkbox-group v-model="checkedPersons" @change="handleCheckedChange">
+              <el-checkbox
+                v-model="persons"
+                v-for="person in persons"
+                :label="person"
+                :key="person.militaryName"
+              >{{person.militaryName}}</el-checkbox>
+            </el-checkbox-group>
+          </el-tab-pane>
+          <el-tab-pane label="专业人才分布" name="2">
+            <el-checkbox
+              :indeterminate="isIndeterminate2"
+              v-model="profressionCheckAll"
+              @change="handleCheckAllChange"
+            >全选</el-checkbox>
+            <div style="margin: 15px 0;"></div>
+            <el-checkbox-group v-model="checkedProfessions" @change="handleCheckedChange">
+              <el-checkbox
+                v-model="professions"
+                v-for="profession in professions"
+                :label="profession"
+                :key="profession.militaryName"
+              >{{profession.militaryName}}</el-checkbox>
+            </el-checkbox-group>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
       <div id="digital_earth" class="box"></div>
     </el-container>
+    <div class="locationStyle">
+      <i class="el-icon-remove-outline" @click="changeCameraHeight(-1)"></i>
+      <i class="el-icon-circle-plus-outline" @click="changeCameraHeight(1)"></i>
+
+      <!-- <el-icon-remove-outline style="width:30px;height:30px"></el-icon-remove-outline> -->
+    </div>
     <InfoAlertShow @isShow="showInfoAlert" v-show="isShow" :infoLists="infoLists"></InfoAlertShow>
-    <!--  -->
     <el-footer>Footer</el-footer>
     <!-- https://www.cnblogs.com/xifengxiaoma/p/9573439.html -->
   </div>
@@ -19,6 +60,10 @@ import InfoAlertShow from "./infoAlertShow.vue";
 var viewer;
 var entityClickedHandler;
 var human_distribution_primitives = new Cesium.PrimitiveCollection(); // 人力资源分布Entitys
+var personOptions = []; // 人员分布
+var professionalOptions = []; // 专业人才分布
+var allEntitys = [];
+
 export default {
   name: "dashboard",
   components: { Navbar, InfoAlertShow },
@@ -26,6 +71,16 @@ export default {
     return {
       user: "",
       isShow: false,
+      activeName: "1",
+      persons: personOptions,
+      professions: professionalOptions,
+      personCheckAll: false,
+      profressionCheckAll: false,
+      checkedPersons: [],
+      checkedProfessions: [],
+      isIndeterminate: false,
+      isIndeterminate2: false,
+
       infoLists: [
         {
           name: "XX部门",
@@ -91,7 +146,7 @@ export default {
           unitName: "南京都在哪网讯科技",
           detail: [
             {
-              name: "？？？部门",
+              name: "和杜绝部门",
               detail: "中国移动十多个不能"
             },
             {
@@ -214,12 +269,22 @@ export default {
             },
             {
               name: "党工委",
-              detail: "2017年4月16日 - vue实现简单表格组件 本来想这一周做一个关于vuex的总结的,但是由于朋友反应说还不知道如何用vue去写一个组件,所以在此写写一篇文章来说明下如何去写vue页面或者..."
+              detail:
+                "2017年4月16日 - vue实现简单表格组件 本来想这一周做一个关于vuex的总结的,但是由于朋友反应说还不知道如何用vue去写一个组件,所以在此写写一篇文章来说明下如何去写vue页面或者..."
             }
           ]
         }
       ]
     };
+  },
+  created: function() {
+    // 请求数据
+    setTimeout(() => {
+      personOptions = require("./personDistribution.json").personCategroy;
+      this.persons = personOptions;
+      professionalOptions = require("./talentDistribution.json").personCategroy;
+      this.professions = professionalOptions;
+    }, 2000);
   },
   mounted: function() {
     viewer = new Cesium.Viewer("digital_earth", {
@@ -277,7 +342,7 @@ export default {
       viewer.scene.canvas
     );
 
-    this.addDataToMap();
+    // this.addDataToMap();
   },
   methods: {
     showInfoAlert(value) {
@@ -354,6 +419,7 @@ export default {
         }
       }, Cesium.ScreenSpaceEventType.MOUSE_MOVE); //MOUSE_MOVE
     },
+
     // 点击entity触发事件
     addClickedEvent() {
       let that = this;
@@ -372,11 +438,113 @@ export default {
         }
       }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
     },
+    removeEntityFromMap() {
+      for (var i = 0; i < allEntitys.length; i++) {
+        let entity = allEntitys[i];
+        viewer.entities.remove(entity);
+      }
+      allEntitys.length = 0;
+    },
+    // 地图上添加entity
+    addEntityToMap(value) {
+      let r = value.color.r / 255.0;
+      let g = value.color.g / 255.0;
+      let b = value.color.b / 255.0;
+      let a = value.color.a;
+
+      let color = new Cesium.Color(r, g, b, a);
+      value.locations.forEach(element => {
+        let position = new Cesium.Cartesian3.fromDegrees(
+          element.lng,
+          element.lat,
+          0
+        );
+        var entity = viewer.entities.add({
+          id: "point" + element.id,
+          objc: element,
+          position: position,
+          point: {
+            pixelSize: 7,
+            color: color,
+            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND
+          }
+        });
+        allEntitys.push(entity);
+      });
+      this.mouseMoveEvent();
+    },
+
     // 显示提示框
     showDetailInformation(element) {
       this.isShow = true;
       this.infoLists = element.detail;
       // this.infoLists.push({ name: "XXXXXX", detail: "1233333333" });
+    },
+
+    handleCheckAllChange(val) {
+      if (this.activeName == "1") {
+        this.checkedPersons = val ? personOptions : [];
+        this.isIndeterminate = false;
+
+        this.checkedProfessions = [];
+        this.profressionCheckAll = false;
+        this.removeEntityFromMap();
+        if (val) {
+          // 全选
+          personOptions.forEach(element => {
+            this.addEntityToMap(element);
+          });
+        }
+      } else if (this.activeName == "2") {
+        this.checkedProfessions = val ? professionalOptions : [];
+        this.isIndeterminate2 = false;
+
+        this.personCheckAll = false;
+        this.checkedPersons = [];
+        this.removeEntityFromMap();
+        if (val) {
+          // 全选
+          professionalOptions.forEach(element => {
+            this.addEntityToMap(element);
+          });
+        }
+      }
+    },
+    handleCheckedChange(value) {
+      if (this.activeName == "1") {
+        let checkedCount = value.length;
+        this.personCheckAll = checkedCount === this.persons.length;
+        this.isIndeterminate =
+          checkedCount > 0 && checkedCount < this.persons.length;
+        this.removeEntityFromMap();
+        this.checkedProfessions = [];
+        this.profressionCheckAll = false;
+        value.forEach(element => {
+          this.addEntityToMap(element);
+        });
+      } else if (this.activeName == "2") {
+        let checkedCount = value.length;
+        this.profressionCheckAll = checkedCount === this.professions.length;
+        this.isIndeterminate2 =
+          checkedCount > 0 && checkedCount < this.professions.length;
+        this.removeEntityFromMap();
+        this.personCheckAll = false;
+        this.checkedPersons = [];
+        value.forEach(element => {
+          this.addEntityToMap(element);
+        });
+      }
+    },
+    changeCameraHeight(value) {
+      if (value == 1) {
+        // 放大地图，视角变小
+        viewer.camera.moveForward(
+          viewer.camera.positionCartographic.height * 0.5
+        );
+      } else if (value == -1) {
+        // 缩小地图，视角变大
+        viewer.camera.moveBackward(viewer.camera.positionCartographic.height);
+      }
     }
   }
 };
@@ -424,6 +592,7 @@ body > .el-container {
 }
 
 .box {
+  display: block;
   height: 100%;
   width: 100%;
 }
@@ -445,5 +614,53 @@ body > .el-container {
   width: 70%;
   height: 500px;
   background-color: rebeccapurple !important;
+}
+.leftBox {
+  height: 100%;
+  min-width: 257px;
+  background-color: white;
+}
+.locationStyle {
+  width: 30px;
+  height: 60px;
+  background-color: transparent;
+  right: 20px;
+  bottom: 100px;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+.main >>> .el-icon-remove-outline {
+  width: 30px;
+  height: 30px;
+  color: white;
+}
+.main >>> .el-icon-circle-plus-outline {
+  width: 30px;
+  height: 30px;
+  color: white;
+}
+.el-checkbox-group {
+  font-size: 0;
+  display: flex;
+  flex-direction: column;
+}
+.el-checkbox + .el-checkbox {
+  margin-left: 0px;
+}
+.el-checkbox-group {
+  font-size: 0;
+  margin-left: 25px;
+}
+.el-checkbox {
+  margin-top: 10px;
+}
+.el-checkbox,
+.el-checkbox__input {
+  display: inline-block;
+  position: relative;
+  white-space: nowrap;
+  padding: 4px;
 }
 </style>
