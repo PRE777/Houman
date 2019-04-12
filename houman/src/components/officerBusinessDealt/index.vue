@@ -80,7 +80,7 @@
               <el-option label="在编" value="Yes"></el-option>
               <el-option label="不在编" value="No"></el-option>
             </el-select>
-          </el-input> -->
+          </el-input>-->
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -112,8 +112,7 @@ export default {
       personnels: [
         { name: "军官", activeName: "1" },
         { name: "士兵", activeName: "2" },
-        { name: "文职人员", activeName: "3" },
-        { name: "全部", activeName: "4" }
+        { name: "文职人员", activeName: "3" }
       ],
       personnelList: [], // 要展示的人员列表
       personalColumns: [
@@ -313,5 +312,4 @@ span {
 .main >>> .el-select {
   width: 387px;
 }
-
 </style>
