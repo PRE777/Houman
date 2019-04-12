@@ -39,5 +39,12 @@ export default [
     component: () => import('@/components/exportFile/index'),
     children: [
     ]
+  }, {
+    path: '/officerBusinessDealt',
+    names: '业务办理组件',
+    img: ln,
+    component: () => import('@/components/officerBusinessDealt/index'),
+    children: [
+    ]
   }
 ]
