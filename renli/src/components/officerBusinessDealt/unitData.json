@@ -1,0 +1,544 @@
+{
+    "unitData": [
+        {
+            "id": "001",
+            "label": "空军XX单位",
+            "children": [
+                {
+                    "id": "001-1",
+                    "parentId": "001",
+                    "label": "单位1",
+                    "children": [
+                        {
+                            "id": "001-1-1",
+                            "label": "单位1部门1",
+                            "parentId": "001-1"
+                        },
+                        {
+                            "id": "001-1-2",
+                            "label": "单位1部门2",
+                            "parentId": "001-1"
+                        }
+                    ]
+                },
+                {
+                    "id": "001-2",
+                    "parentId": "001",
+                    "label": "单位2",
+                    "children": [
+                        {
+                            "id": "001-2-1",
+                            "label": "单位2部门1",
+                            "parentId": "001-2"
+                        },
+                        {
+                            "id": "001-2-2",
+                            "label": "单位2部门2",
+                            "parentId": "001-2"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "002",
+            "label": "陆军XX单位",
+            "children": [
+                {
+                    "id": "002-1",
+                    "parentId": "002",
+                    "label": "单位1",
+                    "children": [
+                        {
+                            "id": "002-1-1",
+                            "label": "单位1部门1",
+                            "parentId": "002-1"
+                        },
+                        {
+                            "id": "002-1-2",
+                            "label": "单位1部门2",
+                            "parentId": "002-1"
+                        }
+                    ]
+                },
+                {
+                    "id": "002-2",
+                    "parentId": "002",
+                    "label": "单位2",
+                    "children": [
+                        {
+                            "id": "002-2-1",
+                            "label": "单位2部门1",
+                            "parentId": "002-2"
+                        },
+                        {
+                            "id": "002-2-2",
+                            "label": "单位2部门2",
+                            "parentId": "002-2"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "001": [
+        {
+            "bianzhihao": "100",
+            "userId": 100001,
+            "name": "张三",
+            "bubie": "空空",
+            "zhiwumingcheng": "政委",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "团长 2013-10",
+            "junxianjishijian": "少校2011-12",
+            "birthDate": "1990-01-01",
+            "ruwushijian": "2008-9-9",
+            "jijishijian": "高级技工2011-10-10",
+            "native": "山东省烟台市莱山区xxx县xxx街道"
+        },
+        {
+            "bianzhihao": "101",
+            "userId": 100002,
+            "name": "李四",
+            "bubie": "小空空",
+            "zhiwumingcheng": "小兵",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "士兵 2013-10",
+            "junxianjishijian": "中级士官 2011-12",
+            "birthDate": "1990-01-01",
+            "ruwushijian": "2008-9-9",
+            "jijishijian": "高级技工2011-10-10",
+            "native": "北京市朝阳区xxx县xxx街道"
+        },
+        {
+            "bianzhihao": "102",
+            "userId": 100003,
+            "name": "王五",
+            "bubie": "小璐璐",
+            "zhiwumingcheng": "主任",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "团长 2013-10",
+            "junxianjishijian": "少校 2011-12",
+            "birthDate": "1979-01-01",
+            "ruwushijian": "2005-9-9",
+            "jijishijian": "特技技工 2011-10-10",
+            "native": "上海市闽兴区xxx县xxx街道"
+        },
+        {
+            "bianzhihao": "103",
+            "userId": 100004,
+            "name": "马六",
+            "bubie": "海海",
+            "zhiwumingcheng": "参谋长",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "师长 2013-10",
+            "junxianjishijian": "上校 2011-12",
+            "birthDate": "1965-01-01",
+            "ruwushijian": "1999-9-9",
+            "jijishijian": "特技技工 2011-10-10",
+            "native": "浙江省绍兴市芜湖区xxx县xxx街道"
+        },
+        {
+            "bianzhihao": "104",
+            "userId": 100005,
+            "name": "老⑦",
+            "bubie": "空空",
+            "zhiwumingcheng": "参谋长",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "师长 2013-10",
+            "junxianjishijian": "上校 2011-12",
+            "birthDate": "1975-01-01",
+            "ruwushijian": "2001-9-9",
+            "jijishijian": "特技技工 2011-10-10",
+            "native": "福建省xxx市xxx区xxx县xxx街道"
+        }
+    ],
+    "001-1": [
+        {
+            "bianzhihao": "100",
+            "userId": 100001,
+            "name": "张三",
+            "bubie": "空空",
+            "zhiwumingcheng": "政委",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "团长 2013-10",
+            "junxianjishijian": "少校2011-12",
+            "birthDate": "1990-01-01",
+            "ruwushijian": "2008-9-9",
+            "jijishijian": "高级技工2011-10-10",
+            "native": "山东省烟台市莱山区xxx县xxx街道"
+        },
+        {
+            "bianzhihao": "101",
+            "userId": 100002,
+            "name": "李四",
+            "bubie": "小空空",
+            "zhiwumingcheng": "小兵",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "士兵 2013-10",
+            "junxianjishijian": "中级士官 2011-12",
+            "birthDate": "1990-01-01",
+            "ruwushijian": "2008-9-9",
+            "jijishijian": "高级技工2011-10-10",
+            "native": "北京市朝阳区xxx县xxx街道"
+        },
+        {
+            "bianzhihao": "102",
+            "userId": 100003,
+            "name": "王五",
+            "bubie": "小璐璐",
+            "zhiwumingcheng": "主任",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "团长 2013-10",
+            "junxianjishijian": "少校 2011-12",
+            "birthDate": "1979-01-01",
+            "ruwushijian": "2005-9-9",
+            "jijishijian": "特技技工 2011-10-10",
+            "native": "上海市闽兴区xxx县xxx街道"
+        },
+        {
+            "bianzhihao": "104",
+            "userId": 100005,
+            "name": "老⑦",
+            "bubie": "空空",
+            "zhiwumingcheng": "参谋长",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "师长 2013-10",
+            "junxianjishijian": "上校 2011-12",
+            "birthDate": "1975-01-01",
+            "ruwushijian": "2001-9-9",
+            "jijishijian": "特技技工 2011-10-10",
+            "native": "福建省xxx市xxx区xxx县xxx街道"
+        }
+    ],
+    "001-1-1": [
+        {
+            "bianzhihao": "100",
+            "userId": 100001,
+            "name": "张三",
+            "bubie": "空空",
+            "zhiwumingcheng": "政委",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "团长 2013-10",
+            "junxianjishijian": "少校2011-12",
+            "birthDate": "1990-01-01",
+            "ruwushijian": "2008-9-9",
+            "jijishijian": "高级技工2011-10-10",
+            "native": "山东省烟台市莱山区xxx县xxx街道"
+        },
+        {
+            "bianzhihao": "101",
+            "userId": 100002,
+            "name": "李四",
+            "bubie": "小空空",
+            "zhiwumingcheng": "小兵",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "士兵 2013-10",
+            "junxianjishijian": "中级士官 2011-12",
+            "birthDate": "1990-01-01",
+            "ruwushijian": "2008-9-9",
+            "jijishijian": "高级技工2011-10-10",
+            "native": "北京市朝阳区xxx县xxx街道"
+        },
+        {
+            "bianzhihao": "102",
+            "userId": 100003,
+            "name": "王五",
+            "bubie": "小璐璐",
+            "zhiwumingcheng": "主任",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "团长 2013-10",
+            "junxianjishijian": "少校 2011-12",
+            "birthDate": "1979-01-01",
+            "ruwushijian": "2005-9-9",
+            "jijishijian": "特技技工 2011-10-10",
+            "native": "上海市闽兴区xxx县xxx街道"
+        }
+    ],
+    "001-1-2": [
+        {
+            "bianzhihao": "104",
+            "userId": 100005,
+            "name": "老⑦",
+            "bubie": "空空",
+            "zhiwumingcheng": "参谋长",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "师长 2013-10",
+            "junxianjishijian": "上校 2011-12",
+            "birthDate": "1975-01-01",
+            "ruwushijian": "2001-9-9",
+            "jijishijian": "特技技工 2011-10-10",
+            "native": "福建省xxx市xxx区xxx县xxx街道"
+        }
+    ],
+    "junguan": [
+        {
+            "bianzhihao": "104",
+            "userId": 100005,
+            "name": "老⑦",
+            "bubie": "空空",
+            "zhiwumingcheng": "参谋长",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "师长 2013-10",
+            "junxianjishijian": "上校 2011-12",
+            "birthDate": "1975-01-01",
+            "ruwushijian": "2001-9-9",
+            "jijishijian": "特技技工 2011-10-10",
+            "native": "福建省xxx市xxx区xxx县xxx街道"
+        }
+    ],
+    "shibing": [
+        {
+            "bianzhihao": "101",
+            "userId": 100002,
+            "name": "李四",
+            "bubie": "小空空",
+            "zhiwumingcheng": "小兵",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "士兵 2013-10",
+            "junxianjishijian": "中级士官 2011-12",
+            "birthDate": "1990-01-01",
+            "ruwushijian": "2008-9-9",
+            "jijishijian": "高级技工2011-10-10",
+            "native": "北京市朝阳区xxx县xxx街道"
+        }
+    ],
+    "wenzhi": [
+        {
+            "bianzhihao": "102",
+            "userId": 100003,
+            "name": "王五",
+            "bubie": "小璐璐",
+            "zhiwumingcheng": "主任",
+            "xiangangweishijian": "2010-10-16",
+            "zhijijishijian": "团长 2013-10",
+            "junxianjishijian": "少校 2011-12",
+            "birthDate": "1979-01-01",
+            "ruwushijian": "2005-9-9",
+            "jijishijian": "特技技工 2011-10-10",
+            "native": "上海市闽兴区xxx县xxx街道"
+        }
+    ],
+    "renzhi": [
+        {
+            "key": "nirengangwei",
+            "title": "拟任岗位",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "zhiwudengji",
+            "title": "职务等级",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "jishuzhiwu",
+            "title": "技术职务",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "jishudengji",
+            "title": "技术等级",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "zaibianqingkuang",
+            "title": "在编情况",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "zhuleibiema",
+            "title": "主类别码",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "xiangleibiema",
+            "title": "详类别码",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "tizhijishu",
+            "title": "提职级数",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "zhiwupeibei",
+            "title": "职务配备",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "tiaozhengjunxian",
+            "title": "调整军衔",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "minglingshijian",
+            "title": "命令时间",
+            "value": "",
+            "type":"date"
+        },
+        {
+            "key": "qisuanshijian",
+            "title": "起算时间",
+            "value": "",
+            "type":"date"
+        },
+        {
+            "key": "zhengrenminglinghao",
+            "title": "证人命令号",
+            "value": "",
+            "type":"string"
+        }
+    ],
+    "jinshengjunxian": [
+        {
+            "key": "jinxianjishu",
+            "title": "晋衔级数",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "minglingshijian",
+            "title": "命令时间",
+            "value": "",
+            "type":"date"
+        },
+        {
+            "key": "qisuanshijian",
+            "title": "起算时间",
+            "value": "",
+            "type":"date"
+        },
+        {
+            "key": "zhengrenminglinghao",
+            "title": "证人命令号",
+            "value": "",
+            "type":"date"
+        }
+    ],
+    "jishuzhiwutiaozheng": [
+        {
+            "key": "nitiaozhengjishuzhiwu",
+            "title": "拟调整技术职务",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "minglingshijian",
+            "title": "命令时间",
+            "value": "",
+            "type":"date"
+        },
+        {
+            "key": "qisuanshijian",
+            "title": "起算时间",
+            "value": "",
+            "type":"date"
+        },
+        {
+            "key": "zhengrenminglinghao",
+            "title": "证人命令号",
+            "value": "",
+            "type":"string"
+        }
+    ],
+    "jinshengdengji": [
+        {
+            "key": "jinshengjibie",
+            "title": "晋升级别",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "minglingshijian",
+            "title": "命令时间",
+            "value": "",
+            "type":"date"
+        },
+        {
+            "key": "shengxiaoshijian",
+            "title": "生效时间",
+            "value": "",
+            "type":"date"
+        },
+        {
+            "key": "zhengrenminglinghao",
+            "title": "证人命令号",
+            "value": "",
+            "type":"string"
+        }
+    ],
+    "shibingxuanqu": [
+        {
+            "key": "xuanquleixing",
+            "title": "选取类型",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "laiyuanleibie",
+            "title": "来源类别",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "pizhunjiguan",
+            "title": "批准机关",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "qisuanshiijian",
+            "title": "起算时间",
+            "value": "",
+            "type":"date"
+        },
+        {
+            "key": "minglingshijian",
+            "title": "命令时间",
+            "value": "",
+            "type":"date"
+        },
+        {
+            "key": "zhengrenminglinghao",
+            "title": "证人命令号",
+            "value": "",
+            "type":"string"
+        }
+    ],
+    "wenzhigangjitiaozheng": [
+        {
+            "key": "jinshengdengji",
+            "title": "晋升等级",
+            "value": "",
+            "type":"string"
+        },
+        {
+            "key": "minglingshijian",
+            "title": "命令时间",
+            "value": "",
+            "type":"date"
+        },
+        {
+            "key": "qisuanshijian",
+            "title": "起算时间",
+            "value": "",
+            "type":"date"
+        },
+        {
+            "key": "zhengrenminglinghao",
+            "title": "证人命令号",
+            "value": "",
+            "type":"string"
+        }
+    ]
+}

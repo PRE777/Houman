@@ -1,0 +1,79 @@
+#sourceAnalysis {
+    width: 100%;
+    flex: 1;
+    box-sizing: content-box;
+}
+#sourceAnalysis aside {
+    width: 20%;
+    height: 100%;
+    position: relative;
+    background-color: rgba(56,71,112,1);
+}
+#sourceAnalysis aside .el-tree {
+    padding-top: 30px;
+    color: #fff;
+    background-color: rgba(56,71,112,1);
+}
+#sourceAnalysis .el-tree .is-current {
+    background-color: rgba(56,71,112,1);
+}
+
+#sourceAnalysis .el-tree-node__content:hover,
+#sourceAnalysis .el-tree-node__content:focus,
+#sourceAnalysis .el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+    background-color: rgba(56,71,112,1);
+}
+#sourceAnalysis .el-tree-node__content {
+    height: 50px;
+}
+#sourceAnalysis #contents {
+    width: 80%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 60px;
+}
+
+/* 内容页 */
+#sourceAnalysis #page-title {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    box-shadow: 0 2px 4px #dfdfdf;
+    background-color: #fff;
+    padding-left: 20px;
+    font-size: 18px;
+    color: rgba(81,115,168,1); 
+}
+#sourceAnalysis #pies,
+#sourceAnalysis #tables {
+    width: 40%;
+    height: 400px;
+    position: absolute;
+    top: 80px;
+}
+#sourceAnalysis #pies {
+    left: 0;
+}
+#sourceAnalysis #tables {
+    width: 60%;
+    right: 0;
+    position: absolute;
+}
+#sourceAnalysis #tables .el-table {
+    margin: auto;
+}
+#sourceAnalysis #tables .el-table th {
+    background-color: #dfdfdf;
+}
+#sourceAnalysis #tables .el-table th,
+#sourceAnalysis #tables .el-table td {
+    text-align: center;
+}
+#general-table-title {
+    width: 90%;
+    margin: 17px 0 30px 5%;
+    color: rgba(54,54,54,1);
+    font-size: 17px;
+    font-weight: 700;  
+}

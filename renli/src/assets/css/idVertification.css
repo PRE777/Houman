@@ -1,0 +1,56 @@
+#idVertification #page-title {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    box-shadow: 0 2px 4px #dfdfdf;
+    background-color: #fff;
+    padding-left: 20px;
+    font-size: 18px;
+    color: rgba(81,115,168,1); 
+}
+
+#idVertification .container {
+    margin: 30px 50px;
+    position: relative;
+    height: 36px;;
+    line-height: 36px;
+}
+
+#idVertification .container span {
+   color: rgb(102, 102, 102);
+   font-size: 14px; 
+}
+
+#idVertification .container input {
+    position: absolute;
+    top: 0;
+    left: 80px;
+    height: 36px;
+    width: 200px;
+    padding-left: 10px;
+    color: rgb(102, 102, 102);
+    font-size: 14px;
+}
+#idVertification .container input:focus {
+    outline: none;    
+}
+
+#idVertification #query {
+    margin: 30px 100px;
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    background-color: rgba(104,155,255,1);
+    color: #fff;
+    font-size: 16px;
+    border-radius: 3px;
+    cursor: pointer;
+    border: none;
+}
+#idVertification #query:hover {
+    background-color: rgba(92,136,241,1);    
+}
+#idVertification #query:focus {
+    outline: none;
+    background-color: rgba(92,136,241,1);
+}

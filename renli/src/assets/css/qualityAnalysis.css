@@ -1,0 +1,87 @@
+#qualityAnalysis {
+    width: 100%;
+    flex: 1;
+    box-sizing: content-box;
+}
+#qualityAnalysis aside {
+    width: 20%;
+    height: 100%;
+    position: relative;
+    background-color: rgba(56,71,112,1);
+}
+#qualityAnalysis aside .el-tree {
+    padding-top: 30px;
+    color: #fff;
+    background-color: rgba(56,71,112,1);
+}
+#qualityAnalysis .el-tree .is-current {
+    background-color: rgba(56,71,112,1);
+}
+
+#qualityAnalysis .el-tree-node__content:hover,
+#qualityAnalysis .el-tree-node__content:focus,
+#qualityAnalysis .el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+    background-color: rgba(56,71,112,1);
+}
+#qualityAnalysis .el-tree-node__content {
+    height: 50px;
+}
+#qualityAnalysis #contents {
+    width: 80%;
+    flex: 1;
+    box-sizing: content-box;
+    position: absolute;
+    top: 60px;
+    right: 0;
+}
+
+#qualityAnalysis #page-title {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    box-shadow: 0 2px 4px #dfdfdf;
+    background-color: #fff;
+    padding-left: 20px;
+    font-size: 18px;
+    color: rgba(81,115,168,1); 
+}
+
+/* 内容页 */
+#qualityAnalysis .container { 
+    width: 100%;
+    min-width: 1160px;
+    height: 600px;
+    position: relative;
+}
+
+#qualityAnalysis #bars,
+#qualityAnalysis #tables {
+    height: 600px;
+    width: 550px;
+    position: absolute;
+    top: 40px;
+}
+#qualityAnalysis #bars {
+    left: 20px;
+}
+#qualityAnalysis #tables {
+    left: 590px;
+    margin: auto 0;
+}
+
+#tables table {
+    height: 100%;
+    border-collapse: collapse;
+}
+#tables table,
+#tables table tr,
+#tables table td {
+    text-align: center;
+    border: 0.5px solid #ddd;
+}
+#tables tr:first-child td {
+    width: 80px;
+}
+#tables tr:nth-child(n+1) td {
+    width: 100px;
+}
