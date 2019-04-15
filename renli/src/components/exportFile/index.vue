@@ -173,7 +173,6 @@ export default {
       dialogFormColumns: [],
       personalInfo: [
         {
-          num: "001",
           bianzhihao: "100",
           userId: 100001,
           name: "张三",
@@ -189,7 +188,6 @@ export default {
         }
       ],
       personalInfoColumns: [
-        { key: "num", title: "序号" },
         { key: "bianzhihao", title: "编制号" },
         { key: "userId", title: "身份号" },
         { key: "name", title: "姓名" },
@@ -526,5 +524,13 @@ body > .el-container {
 /* 个人信息编辑 */
 .personInfoEditDiv {
   /* background-color: yellow; */
+}
+.main >>> .el-dialog__body {
+  /* height: 400px; */
+  max-height: 400px;
+  overflow-y: scroll;
+}
+.main >>> .el-select {
+  width: 387px;
 }
 </style>
